@@ -18,26 +18,29 @@
 	
 	<div class="container">
 		<div class="row">
-			<div class="span12">
+			<div class="width-center">
 				<div class="jc-demo-box">
 					
-					<div id="div">
+					<div id="div" >
 						<img src="demo_files/sago.jpg" id="target"  width='600px' height='400px'  alt="[Jcrop Example]" />
 						<canvas id="myCanvas"  style="display : none"  width='600px' height='400px'></canvas>
 					</div>
+                    <input type="button" id="btn" value="Edit" class="btn-inverse" >
+                    <div class="showdiv" style="display:none">
 					
-					<input class="btn" type="button"  id="blur" value="blur"></input>	
+					<input class="btn btn-info" type="button"  id="blur" value="blur"></input>	
 					
-					<input class="btn" type="button"  id="posterize"  value="posterize"></input>	
+					<input class="btn btn-info" type="button"  id="posterize"  value="posterize"></input>	
 					
-					<input class="btn" type="button"  id="colorfilter" value="color"></input>	
+					<input class="btn btn-info" type="button"  id="colorfilter" value="color"></input>	
 					
 					<input type="range"  min="-10" max ="10" id="brightness" ></input>	
 					
-					<input id="reset" type="button" value="reset"></button>
+					<input id="reset" type="button" value="reset" class="btn-primary" ></button>
 					
-					<div class="clearfix"></div>
-					<button id="crop" value="crop" onclick='crop()'>Crop</button> 
+<!--					<div class="clearfix"></div>-->
+					<button id="crop" value="crop" onclick='crop()' class="btn-danger">Crop</button> 
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -45,163 +48,173 @@
 	
 </body>
 		<script type="text/javascript">
-			var jcrop_api;
-			var coord = {};
-			jQuery(function($){
-				$('#div').Jcrop({
-					onChange:   saveCoords,
-					onSelect:   saveCoords
-					},function(){
-					jcrop_api = this;
-				});
-			});
-			
-			var imageObj = new Image();
-			imageObj.src = 'demo_files/sago.jpg';	
-			
-			function saveCoords(c)
-			{
-				coord = c;
-			};
-			
-			$('.btn').on('click',function(){
-				var effectName  =  $(this).val();
-				console.log(effectName);	
-				doTest(effectName);
-			})
-			
-			$('#brightness').on('input',function(){
-				var val = $('#brightness').val();
-				console.log(val);
-				tests['brightness'].options =  {brightness : val,
-                        contrast : 0
-                    }
-				
-				doTest('brightness');
-				
-			});
-			
-			$('#reset').on('click',function(){
-				
-				$('#brightness').val('0')
-				
-				$('#target').css('display','block');
-				
-				$('#myCanvas').css('display','none');
-				
-										
-			});
-			
-			
-			function crop(){
-				
-				jcrop_api.release();
-				
-				$('#target').css('display','none');
-				
-				$('#myCanvas').css('display','block');
-				
-				
-				
-				console.log($('#target'));
-				var canvas = document.getElementById('myCanvas');
-				var context = canvas.getContext('2d');
-				// draw cropped image
-				
-				context.clearRect(0, 0, canvas.width, canvas.height);
-				
-				
-				var sourceX = coord.x;
-				var sourceY = coord.y;
-				var sourceWidth = coord.w;
-				var sourceHeight = coord.h;
-				var destWidth = 600;
-				var destHeight = 400;
-				var destX = 0;
-				var destY = 0;
-				
-				context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
-								
-				
-				
-				
-				var imageData = context.getImageData(destX, destY, destWidth, destHeight);
-				var data = imageData.data;
-				var dataURL = canvas.toDataURL();
-				
-				
-				
-				console.log(dataURL)
-				
-			}
-			 var tests = {			
-			'posterize': {
-				effect : "posterize",
-				options : {
-					levels : 5
-				}
-                },
-
-			'color' : { 
-				effect : "colorfilter",
-				options : {
-					r : 0,
-					g : 194 / 255,
-					b : 177 / 255,
-					luminosity : 0
-				}
-                }, 
-				'blur' : {
-				effect : "blur",
-				options : {
-					kernelSize : 5
-				}
-				},
-				'brightness' : {
-                    effect : "brightness",
-                    options : {
-                        brightness : -1.00,
-                        contrast : -0.1
-                    }
-                }
-			
-            };
+		$('#btn').on('click', function(){
+    $('.showdiv').fadeToggle('slow');
+});
 		
+		
+			var jcrop_api;
+	var coord = {};
+	jQuery(function($){
+		$('#div').Jcrop({
+			onChange:   saveCoords,
+			onSelect:   saveCoords
+			},function(){
+			jcrop_api = this;
+		});
+	});
+	
+	var imageObj = new Image();
+	imageObj.src = 'demo_files/sagomod.png';	
+	
+	function saveCoords(c)
+	{
+		coord = c;
+	};
+	
+	$('.btn').on('click',function(){
+		var effectName  =  $(this).val();
+		console.log(effectName);	
+		doTest(effectName);
+	})
+	
+	$('#brightness').on('input',function(){
+		var val = $('#brightness').val();
+		console.log(val);
+		tests['brightness'].options =  {brightness : val,
+			contrast : 0
+		}
+		
+		doTest('brightness');
+		
+	});
+	
+	$('#reset').on('click',function(){
+		
+		$('#brightness').val('0')
+		
+		$('#target').css('display','block');
+		
+		$('#myCanvas').css('display','none');
+		
+		
+	});
+	
+	
+	function crop(){
+		
+		jcrop_api.release();
+
+		var sourceX = coord.x;
+		var sourceY = coord.y;
+		var sourceWidth = coord.w;
+		var sourceHeight = coord.h;
+		var destWidth = 600;
+		var destHeight = 400;
+		var destX = 0;
+		var destY = 0;
+		
+		if(sourceX != undefined){
+		
+			var canvas = document.getElementById('myCanvas');
+			var context = canvas.getContext('2d');
+		
+			context.clearRect(0, 0, canvas.width, canvas.height);
+
+			$('#target').css('display','none');
 			
-			function doTest(test) {
-				
+			$('#myCanvas').css('display','block');
 			
-					$('#target').css('display','none');
-				
-					$('#myCanvas').css('display','block');
-				
-				
-                var img = document.getElementById("target"),
-				canvas = document.getElementById("myCanvas"),
-				ctx = canvas.getContext("2d"),
-				P;
-				
-				test =  test.toString();
-				
-               // canvas.style.display = "none";
-                //canvas.width = img.width;
-                //canvas.height = img.height;
-                canvas.title = tests[test].effect;
-                ctx.drawImage(img, 0, 0);
-				
-                P = new Pixastic(ctx);
-				
-				//console.log(tests[test].effect);
-				
-                P[tests[test].effect](tests[test].options).done(function() {
-							//alert('completed');
-						canvas.style.display = "block";
-					}, function(p) {
-						console.log(p);
-				});
+			context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+			var imageData = context.getImageData(destX, destY, destWidth, destHeight);
+			var data = imageData.data;
+			var dataURL = canvas.toDataURL();
+			 coord = {};
+			console.log(dataURL)
+		}
+		
+		
+	}
+	var tests = {			
+		'posterize': {
+			effect : "posterize",
+			options : {
+				levels : 5
 			}
-            
-           
+		},
+		
+		'color' : { 
+			effect : "colorfilter",
+			options : {
+				r : 0,
+				g : 194 / 255,
+				b : 177 / 255,
+				luminosity : 0
+			}
+		}, 
+		'blur' : {
+			effect : "blur",
+			options : {
+				kernelSize : 5
+			}
+		},
+		'brightness' : {
+			effect : "brightness",
+			options : {
+				brightness : -1.00,
+				contrast : -0.1
+			}
+		}
+		
+	};
+	
+	function convertCanvasToImage(canvas,callback) {
+		var image = new Image();
+		image.src = canvas.toDataURL("image/png");
+		console.log(image);
+		callback(image);
+	}
+	
+	function doTest(test) {
+		
+		//var img = document.getElementById("target"), 
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext("2d");
+		var img = "";
+		if($(canvas).css('display') == "block"){
+			convertCanvasToImage(canvas,function(image){
+				img = image;
+			});
+		}
+		else{
+			img = document.getElementById("target");	
+			$('#target').css('display','none');
+			
+			$('#myCanvas').css('display','block');
+		}
+		
+		var P;
+		
+		test =  test.toString();
+		
+		// canvas.style.display = "none";
+		//canvas.width = img.width;
+		//canvas.height = img.height;
+		canvas.title = tests[test].effect;
+		ctx.drawImage(img, 0, 0);
+		
+		P = new Pixastic(ctx);
+		
+		//console.log(tests[test].effect);
+		
+		P[tests[test].effect](tests[test].options).done(function() {
+			//alert('completed');
+			canvas.style.display = "block";
+			}, function(p) {
+			console.log(p);
+		});
+	}
+	
 	</script>
 
 </html>

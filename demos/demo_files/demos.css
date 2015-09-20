@@ -147,3 +147,23 @@ form.coords input {
 .jcrop-droptarget canvas {
   background-color: #f0f0f0;
 }
+.jc-demo-box{width:600px}
+
+
+.hidden {
+  display: none;
+  -webkit-transition: display .5s ease;
+  -moz-transition: display .5s ease;
+  -o-transition: display .5s ease;
+}
+
+.active {
+  transition: display .5s ease;
+  -webkit-transition: display .5s ease;
+  -moz-transition: display .5s ease;
+  -o-transition: display .5s ease;
+}
+
+.showdiv {
+    margin-top:10px;
+}
