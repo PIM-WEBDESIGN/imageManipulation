@@ -4994,3 +4994,6 @@ a.badge:hover {
 .modal-body {
   max-height: 60%;
 }
+
+
+.width-center{margin:0px auto; width:auto}
