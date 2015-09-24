@@ -147,7 +147,7 @@ form.coords input {
 .jcrop-droptarget canvas {
   background-color: #f0f0f0;
 }
-.jc-demo-box{width:600px}
+/*.jc-demo-box{width:600px}*/
 
 
 .hidden {
@@ -167,3 +167,5 @@ form.coords input {
 .showdiv {
     margin-top:10px;
 }
+
+/*#div{border:1px solid #000 !important;}*/
