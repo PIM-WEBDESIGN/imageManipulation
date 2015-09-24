@@ -5,7 +5,7 @@ var coord = {};
 var ctx = "";
 
 var imageObj = new Image();
-	imageObj.src = 'demo_files/pepsi2.png';	
+imageObj.src = 'demo_files/pepsi2.png';	
 
 
 
@@ -32,17 +32,20 @@ function crop(){
 	
 	
 	if(sourceX != undefined){
-		if($(canvas).css('display') == " block"){
+		if($(canvas).css('display') == "block"){
 			convertCanvasToImage(canvas,function(imageObj){
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				ctx.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);			
-				var resCanvas = document.getElementById('resultImg');
+			/*	var resCanvas = document.getElementById('resultImg');
 				var resCtx = resCanvas.getContext('2d');
 				var width =(imageObj.width/imageObj.height) * 100;
 				resCtx.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight,0,0,width,100);
 				coord = {};
 				});
+			*/
 			
-			
+			})
+	
 		}
 		else{			
 			
@@ -130,7 +133,6 @@ function doTest(test) {
 	else{
 		img = document.getElementById("target");	
 		$('#target').css('display','none');
-		
 		$('#myCanvas').css('display','block');
 	}
 	
